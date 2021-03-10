@@ -1,0 +1,88 @@
+ 177    sudo systemctl status snapd
+  178  snap search google cloud sdk
+  179  snap search google-cloud-sdk
+  180  snap warnings
+  181  snap search google-cloud-sdk
+  182  sudo snap install google-cloud-sdk --classic
+  183  which gcloud
+  184  which gsutil
+  185  which bq
+  186  gcloud version
+  187  gcloud help
+ 
+  189  gcloud init
+  190  gcloud auth list
+  191  gcloud info
+  192  gcloud config list
+  193  gcloud projects list
+  194  gcloud config get-value project
+
+  198  gcloud config set project <PROJECT-ID>
+  199  gcloud config get-value project
+  200  gcloud config configurations list
+  201  gcloud components list
+
+OR
+
+1.
+Add the Cloud SDK distribution URI as a package source:
+
+echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+Make sure you have apt-transport-https installed:
+
+sudo apt-get install apt-transport-https ca-certificates gnupg
+
+
+Note: If your distribution does not support the signed-by option run this command instead:
+
+echo "deb https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+
+2.
+Import the Google Cloud public key:
+
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+
+Note: If you are unable to get latest updates due to an expired key, obtain the latest apt-get.gpg key file.
+Note: If your distribution's apt-key command does not support the --keyring argument run this command instead:
+
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+
+3.
+Update and install the Cloud SDK:
+
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+
+For additional apt-get options, such as disabling prompts or dry runs, refer to the apt-get man pages.
+
+Docker Tip: If installing the Cloud SDK inside a Docker image, use a single RUN step instead:
+
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
+    
+  
+4.
+OPTIONALLY, INSTALL ANY OF THESE ADDITIONAL COMPONENTS:
+
+    google-cloud-sdk-app-engine-python
+    google-cloud-sdk-app-engine-python-extras
+    google-cloud-sdk-app-engine-java
+    google-cloud-sdk-app-engine-go
+    google-cloud-sdk-bigtable-emulator
+    google-cloud-sdk-cbt
+    google-cloud-sdk-cloud-build-local
+    google-cloud-sdk-datalab
+    google-cloud-sdk-datastore-emulator
+    google-cloud-sdk-firestore-emulator
+    google-cloud-sdk-pubsub-emulator
+    kubectl
+
+For example, the google-cloud-sdk-app-engine-java component can be installed as follows:
+
+sudo apt-get install google-cloud-sdk-app-engine-java
+
+
+5.
+Run gcloud init to get started:
+
+gcloud init
+
